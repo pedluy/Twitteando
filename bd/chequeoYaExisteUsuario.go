@@ -11,8 +11,8 @@ import (
 func ChequeoYaExisteUsuario(email string) (models.Usuario, bool, string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	db := MongoCN.Database("twitteando")
-	col := db.Collection("usuario")
+	db := MongoCN.Database("Twitteando")
+	col := db.Collection("usuarios")
 	condicion := bson.M{"email": email} /*El formato JSON es {}*/
 	var resultado models.Usuario
 
