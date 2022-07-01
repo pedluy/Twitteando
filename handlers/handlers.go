@@ -5,6 +5,10 @@ import (
 	"net/http"
 	"os"
 
+	/*Tengo que llamar a la carpeta del middlew para que lo reconozca*/
+	"github.com/pedluy/twitteando/middlew"
+	"github.com/pedluy/twitteando/routes"
+
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 )
@@ -12,6 +16,9 @@ import (
 /* manejadores configuro el puerto y el handler para escuchar el servidor*/
 func Manejadores() {
 	router := mux.NewRouter()
+
+	router.HandleFunc("/registro", middlew.ChequeoBD(routes.Registro)).Methods("POST")
+
 	/* Abrimos el puerto*/
 	PORT := os.Getenv("PORT")
 	/*Si el puerto es vacio en el sistema, la forzamos con este if*/
