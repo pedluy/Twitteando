@@ -19,7 +19,7 @@ func Manejadores() {
 	router.HandleFunc("/registro", middlew.ChequeoBD(routes.Registro)).Methods("POST")
 	router.HandleFunc("/login", middlew.ChequeoBD(routes.Login)).Methods("POST")
 	/*Enlazo el handler para apuntar al perfil pero llamo a dos middleware encadenados para checkear el JWT*/
-	router.HandleFunc("/verperfil", middlew.ChequeoBD(middlew.ValidoJWT(routes.VerPerfil))).Methods("POST")
+	router.HandleFunc("/verperfil", middlew.ChequeoBD(middlew.ValidoJWT(routes.VerPerfil))).Methods("GET")
 
 	/* Abrimos el puerto*/
 	PORT := os.Getenv("PORT")
