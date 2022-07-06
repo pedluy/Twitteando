@@ -6,10 +6,9 @@ import (
 	"os"
 
 	/*Tengo que llamar a la carpeta del middlew para que lo reconozca*/
+	"github.com/gorilla/mux"
 	"github.com/pedluy/twitteando/middlew"
 	"github.com/pedluy/twitteando/routes"
-
-	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 )
 
@@ -19,6 +18,8 @@ func Manejadores() {
 
 	router.HandleFunc("/registro", middlew.ChequeoBD(routes.Registro)).Methods("POST")
 	router.HandleFunc("/login", middlew.ChequeoBD(routes.Login)).Methods("POST")
+	/*Enlazo el handler para apuntar al perfil pero llamo a dos middleware encadenados para checkear el JWT*/
+	router.HandleFunc("/verperfil", middlew.ChequeoBD(middlew.ValidoJWT(routes.VerPerfil))).Methods("POST")
 
 	/* Abrimos el puerto*/
 	PORT := os.Getenv("PORT")
